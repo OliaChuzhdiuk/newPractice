@@ -1,6 +1,6 @@
 import { getActiveNotes, getArchivedNotes } from "./data.js";
 
-
+// Function to render active notes table
 export function renderActiveNotes() {
   const activeNotesTableBody = document.getElementById("notes-table-body");
   activeNotesTableBody.innerHTML = "";
@@ -10,11 +10,13 @@ export function renderActiveNotes() {
   activeNotes.forEach((note) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${note.createdAt.toLocaleString()}</td>
       <td>${note.content}</td>
       <td>${note.category}</td>
-      <td>${getDatesFromContent(note.content).join(", ")}</td>
-       <td>
+      <td>${formatDate(note.createdAt)}</td>
+      <td>${getDatesFromContent(note.content).join(
+        ", "
+      )}</td> <!-- Display the list of dates mentioned in the note content -->
+      <td>
         <button data-id="${note.id}" class="archive-button">Archive</button>
         <button data-id="${note.id}" class="delete-button">Delete</button>
         <button data-id="${note.id}" class="edit-button">Edit</button>
@@ -24,6 +26,10 @@ export function renderActiveNotes() {
   });
 }
 
+function formatDate(date) {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleString("en-US", options);
+}
 
 export function renderArchivedNotes() {
   const archivedNotesTableBody = document.getElementById(
