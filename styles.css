@@ -36,7 +36,7 @@ button {
   cursor: pointer;
 }
 
-/* Modal styles */
+//* Add styles for the modal container */
 .modal {
   display: none; /* Hide the modal by default */
   position: fixed;

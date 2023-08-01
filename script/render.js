@@ -42,9 +42,9 @@ export function renderArchivedNotes() {
   archivedNotes.forEach((note) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${note.createdAt.toLocaleString()}</td>
-      <td>${note.content}</td>
-      <td>${note.category}</td>
+    <td>${note.content}</td>
+     <td>${formatDate(note.createdAt)}</td> 
+     <td>${note.category}</td>
       <td>${getDatesFromContent(note.content).join(", ")}</td>
       <td>
         <button data-id="${note.id}" class="unarchive-button">Unarchive</button>

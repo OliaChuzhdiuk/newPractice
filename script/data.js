@@ -31,3 +31,10 @@ export function toggleNoteArchive(noteId) {
 export function addNote(note) {
   notes.push(note);
 }
+
+export function removeNote(noteId) {
+  const noteIndex = notes.findIndex((note) => note.id === noteId);
+  if (noteIndex !== -1) {
+    notes.splice(noteIndex, 1);
+  }
+}
