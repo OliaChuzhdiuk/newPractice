@@ -1,6 +1,6 @@
 import { getActiveNotes, getArchivedNotes } from "./data.js";
 
-// Function to render active notes table
+
 export function renderActiveNotes() {
   const activeNotesTableBody = document.getElementById("notes-table-body");
   activeNotesTableBody.innerHTML = "";

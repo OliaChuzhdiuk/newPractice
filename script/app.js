@@ -85,28 +85,19 @@ function removeNoteAndRender(noteId) {
   renderSummary();
 }
 
-// Modal
 
-// export function openAddNoteModal() {
-//   const modal = document.getElementById("add-note-modal");
-//   modal.style.display = "block";
-// }
-// export function closeAddNoteModal() {
-//   const modal = document.getElementById("add-note-modal");
-//   modal.style.display = "none";
-// }
 
-// Open the modal when the "Create note" button is clicked
+
 document.getElementById("create-note-button").addEventListener("click", () => {
   openAddNoteModal();
 });
 
-// Close the modal when the close button inside the modal is clicked
+
 document.getElementById("close-modal").addEventListener("click", () => {
   closeAddNoteModal();
 });
 
-// Close the modal when clicking outside the modal content
+
 window.addEventListener("click", (event) => {
   const modal = document.getElementById("add-note-modal");
   if (event.target === modal) {
@@ -114,7 +105,6 @@ window.addEventListener("click", (event) => {
   }
 });
 
-// Prevent the form submission and close the modal when the form is submitted
 document.getElementById("add-note-form").addEventListener("submit", (event) => {
   event.preventDefault();
   closeAddNoteModal();
