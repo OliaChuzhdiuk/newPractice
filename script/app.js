@@ -3,7 +3,13 @@ import {
   renderArchivedNotes,
   renderSummary,
 } from "./render.js";
-import { toggleNoteArchive, addNote, getActiveNotes } from "./data.js";
+import {
+  toggleNoteArchive,
+  addNote,
+  getActiveNotes,
+  removeNote,
+} from "./data.js";
+import { openAddNoteModal, closeAddNoteModal } from "./modal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   renderActiveNotes();
@@ -41,7 +47,6 @@ document.getElementById("add-note-form").addEventListener("submit", (event) => {
 document.addEventListener("click", (event) => {
   const target = event.target;
 
-
   if (
     target.classList.contains("archive-button") ||
     target.classList.contains("unarchive-button")
@@ -53,7 +58,6 @@ document.addEventListener("click", (event) => {
     renderArchivedNotes();
     renderSummary();
   }
-
 
   if (target.classList.contains("edit-button")) {
     const noteId = parseInt(target.dataset.id, 10);
@@ -69,46 +73,40 @@ document.addEventListener("click", (event) => {
     }
   }
 
-
   if (target.classList.contains("delete-button")) {
     const noteId = parseInt(target.dataset.id, 10);
-    const confirmDelete = confirm("Are you sure you want to delete this note?");
-
-    if (confirmDelete) {
-      const activeNotes = getActiveNotes();
-      const noteIndex = activeNotes.findIndex((note) => note.id === noteId);
-      if (noteIndex !== -1) {
-        activeNotes.splice(noteIndex, 1);
-        renderActiveNotes();
-        renderSummary();
-      }
-    }
+    removeNoteAndRender(noteId);
   }
 });
 
-
-function openAddNoteModal() {
-  const modal = document.getElementById("add-note-modal");
-  modal.style.display = "block";
+function removeNoteAndRender(noteId) {
+  removeNote(noteId);
+  renderActiveNotes();
+  renderSummary();
 }
 
+// Modal
 
-function closeAddNoteModal() {
-  const modal = document.getElementById("add-note-modal");
-  modal.style.display = "none";
-}
+// export function openAddNoteModal() {
+//   const modal = document.getElementById("add-note-modal");
+//   modal.style.display = "block";
+// }
+// export function closeAddNoteModal() {
+//   const modal = document.getElementById("add-note-modal");
+//   modal.style.display = "none";
+// }
 
-
+// Open the modal when the "Create note" button is clicked
 document.getElementById("create-note-button").addEventListener("click", () => {
   openAddNoteModal();
 });
 
-
-document.getElementsByClassName("close")[0].addEventListener("click", () => {
+// Close the modal when the close button inside the modal is clicked
+document.getElementById("close-modal").addEventListener("click", () => {
   closeAddNoteModal();
 });
 
-
+// Close the modal when clicking outside the modal content
 window.addEventListener("click", (event) => {
   const modal = document.getElementById("add-note-modal");
   if (event.target === modal) {
@@ -116,7 +114,7 @@ window.addEventListener("click", (event) => {
   }
 });
 
-
+// Prevent the form submission and close the modal when the form is submitted
 document.getElementById("add-note-form").addEventListener("submit", (event) => {
   event.preventDefault();
   closeAddNoteModal();
