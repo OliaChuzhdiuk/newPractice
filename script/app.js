@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderActiveNotes();
   renderArchivedNotes();
   renderSummary();
+  closeAddNoteModal();
 });
 
 document.getElementById("add-note-form").addEventListener("submit", (event) => {
@@ -85,18 +86,13 @@ function removeNoteAndRender(noteId) {
   renderSummary();
 }
 
-
-
-
 document.getElementById("create-note-button").addEventListener("click", () => {
   openAddNoteModal();
 });
 
-
 document.getElementById("close-modal").addEventListener("click", () => {
   closeAddNoteModal();
 });
-
 
 window.addEventListener("click", (event) => {
   const modal = document.getElementById("add-note-modal");
